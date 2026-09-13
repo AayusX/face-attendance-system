@@ -30,7 +30,7 @@ Default login: **admin / admin**
 
 ## Build the portable app
 
-The Windows build is produced by GitHub Actions (see `.github/workflows/build-exe.yml`): on every tagged release it builds a self-contained `dist/FaceAttendance/` folder and uploads it as a zip. Download it from the **Releases** page — unzip on any Windows PC and run `FaceAttendance.exe`. No installation required.
+The Windows build is produced by GitHub Actions (see `.github/workflows/build-exe.yml`): it builds a self-contained `dist/FaceAttendance/` folder and uploads it as an artifact. On this repo, go to **Actions → build-exe → latest run → Artifacts** and download **FaceAttendance-portable** (re-run the workflow to refresh it). The build bundle is ~175 MB, over GitHub's 100 MB per-asset limit, so it's shared as an artifact rather than a release asset.
 
 Build locally on Windows:
 
