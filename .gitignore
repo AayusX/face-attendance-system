@@ -10,6 +10,8 @@ build/
 dist/
 *.spec.bak
 package-lock.json
+FaceAttendance-win/
+FaceAttendance-portable.zip
 
 # Runtime data (created by the app next to the executable)
 database/
