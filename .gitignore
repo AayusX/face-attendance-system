@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+build_venv/
+
+# Build output
+build/
+dist/
+*.spec.bak
+package-lock.json
+
+# Runtime data (created by the app next to the executable)
+database/
+exports/
+faces/
+app.log
+selftest_result.txt
+
+# OS / editor
+.DS_Store
+Thumbs.db
+# opencode tooling (not app code)
+.opencode/

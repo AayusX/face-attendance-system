@@ -1,0 +1,9 @@
+opencv-python>=4.9
+opencv-contrib-python>=4.9
+numpy
+pillow
+dlib
+face_recognition
+openpyxl
+nepali_datetime
+setuptools<81
