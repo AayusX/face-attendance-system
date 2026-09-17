@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Face Attendance System</title>
+<style>
+  body { font-family: "Segoe UI", Arial, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px 20px; color: #1a1a1a; line-height: 1.55; }
+  h1 { font-size: 1.5em; }
+  h2 { font-size: 1.15em; margin-top: 1.5em; }
+</style>
+</head>
+<body>
+<h1>Privacy Policy — Face Attendance System</h1>
+<p><strong>Effective date:</strong> 2026-09-17</p>
+<p>This privacy policy explains what Face Attendance System (&ldquo;the app&rdquo;) does with
+your information. The app is a fully <strong>offline</strong> application. It does not connect
+to any network service, does not call any external API, and does not send data anywhere.</p>
+
+<h2>1. What the app collects</h2>
+<ul>
+  <li><strong>Face images and embeddings.</strong> When you register a student, the app captures
+  several photos of a face from your camera, converts each into a numerical mathematical
+  representation (&ldquo;face embedding&rdquo;), and stores only those numbers locally. The app does
+  <strong>not</strong> store photos of faces.</li>
+  <li><strong>Attendance records.</strong> Student IDs, names, and attendance timestamps are stored
+  in a local database.</li>
+  <li><strong>Login credentials.</strong> The app&rsquo;s admin username and password are stored
+  locally, hashed with the PBKDF2 key-derivation function. Default credentials are
+  <code>admin</code> / <code>admin</code> and can be changed in the app&rsquo;s Settings.</li>
+</ul>
+
+<h2>2. Where data is stored</h2>
+<p>All data (the local database, face embeddings, attendance records, and exports) is stored
+<strong>only on your device</strong>, inside the app&rsquo;s per-user data folder
+(<code>%LOCALAPPDATA%\FaceAttendanceSystem</code> or, for the Microsoft Store version, the app&rsquo;s
+<code>LocalCache\Local</code> folder). Nothing is transmitted or uploaded.</p>
+
+<h2>3. Camera use</h2>
+<p>The app uses your <strong>webcam</strong> solely to detect and recognise faces for attendance
+during a session you start manually. Camera frames are processed locally in real time and are
+never recorded, transmitted, or stored beyond the numerical embeddings you choose to save when
+registering a student.</p>
+
+<h2>4. No third parties</h2>
+<p>The app does not include advertising, analytics, tracking, or any third-party network service.
+No personal data is shared with or sold to anyone.</p>
+
+<h2>5. Your control</h2>
+<ul>
+  <li>Registered students and their face data can be <strong>deleted</strong> at any time from the
+  Students tab.</li>
+  <li>Attendance records can be deleted by removing the app&rsquo;s data folder.</li>
+  <li>Uninstalling the app removes the app and its per-user data.</li>
+</ul>
+
+<h2>6. Security</h2>
+<p>Data stays on your device, protected by your Windows account. We cannot access your local data,
+and no server exists that could hold it.</p>
+
+<h2>7. Contact</h2>
+<p>For any privacy questions, contact <a href="mailto:you@example.com">Aayush Bhandari</a> (replace with your real email).</p>
+</body>
+</html>
