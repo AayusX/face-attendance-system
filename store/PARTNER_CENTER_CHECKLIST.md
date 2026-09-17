@@ -5,9 +5,14 @@ Follow this order. Only steps 1–2 are long; the rest is form-filling.
 ## Step 0 — Preflight (do these once)
 - [ ] Confirm the app **runs from the MSIX** (already verified locally: it writes data
       to `%LOCALAPPDATA%\...\FaceAttendanceSystem`).
-- [ ] Host the privacy policy. Easiest free option: push this repo's
-      `store/PRIVACY_POLICY.md` to GitHub Pages and note the URL.
-- [ ] Take screenshots listed in `STORE_LISTING.md` (must be actual screenshots).
+- [ ] Host the privacy policy. Easiest free option (repo is already pushed to GitHub):
+      1. In your browser: repo **Settings → Pages → Source: Deploy from a branch → main /
+         (root) → Save**.
+      2. Wait ~1 min. Your policy URL will be:
+         `https://AayusX.github.io/face-attendance-system/store/PRIVACY_POLICY.html`
+      (GitHub renders the `.md` in `store/` automatically.)
+- [ ] Take screenshots — done automatically into `store/screenshots/*.png`
+      (re-run anytime with `python main.py --capture-shots store\screenshots`).
 
 ## Step 1 — Developer account for free (your VS Enterprise benefit)
 1. Go to https://partner.microsoft.com → **Sign up** → Microsoft Partner Network →
