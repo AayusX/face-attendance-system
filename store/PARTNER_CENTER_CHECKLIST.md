@@ -5,12 +5,17 @@ Follow this order. Only steps 1–2 are long; the rest is form-filling.
 ## Step 0 — Preflight (do these once)
 - [ ] Confirm the app **runs from the MSIX** (already verified locally: it writes data
       to `%LOCALAPPDATA%\...\FaceAttendanceSystem`).
-- [ ] Host the privacy policy. Easiest free option (repo is already pushed to GitHub):
-      1. In your browser: repo **Settings → Pages → Source: Deploy from a branch → main /
-         (root) → Save**.
-      2. Wait ~1 min. Your policy URL will be:
-         `https://AayusX.github.io/face-attendance-system/store/PRIVACY_POLICY.html`
-      (GitHub renders the `.md` in `store/` automatically.)
+- [ ] Host the privacy policy. The repo already contains a ready HTML page
+      (`store/privacy-policy.html`) and a Pages workflow (`.github/workflows/static.yml`).
+      To turn it on:
+      1. Browser → repo **Settings → Pages → Source: GitHub Actions → Save**
+         (the workflow deploys the repo as a static site on every push to `main`).
+      2. If you want it immediately, on the **Actions** tab run
+         "Deploy static content to Pages" → **Run workflow**.
+      3. After ~1 min your policy URL will be:
+         `https://AayusX.github.io/face-attendance-system/store/privacy-policy.html`
+      (Optional: edit `store/privacy-policy.html` → replace `you@example.com` with your
+      real contact email before the first deploy.)
 - [ ] Take screenshots — done automatically into `store/screenshots/*.png`
       (re-run anytime with `python main.py --capture-shots store\screenshots`).
 
