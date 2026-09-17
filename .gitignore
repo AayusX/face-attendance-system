@@ -25,3 +25,7 @@ selftest_result.txt
 Thumbs.db
 # opencode tooling (not app code)
 .opencode/
+
+# MSIX build artifacts
+msix/*.msix
+msix/*.cer

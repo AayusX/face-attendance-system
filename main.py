@@ -101,6 +101,8 @@ class LoginWindow(tk.Tk):
         error_label.pack(pady=(12, 0))
         ttk.Label(panel, text="Default: admin / admin (change it in Settings)",
                   style="CardMuted.TLabel").pack(pady=(14, 0))
+        ttk.Label(panel, text="Developed by Mr. Aayush Bhandari",
+                  style="CardMuted.TLabel").pack(pady=(4, 0))
 
         self.user_entry.bind("<Return>", lambda e: self.login())
         self.pass_entry.bind("<Return>", lambda e: self.login())
@@ -425,6 +427,7 @@ class FaceAttendanceApp(tk.Tk):
         self._build_menu()
         self._build_header()
         self._build_ui()
+        self._build_footer()
         self.stream.start()
         self.detection.start()
         self.detection.encodings_wanted = True
@@ -434,6 +437,15 @@ class FaceAttendanceApp(tk.Tk):
         self._update_session()
         self.after(50, self.poll)
         self.protocol("WM_DELETE_WINDOW", self.on_close)
+
+    def _build_footer(self):
+        footer = tk.Frame(self, bg=PANEL, height=30)
+        footer.pack(fill="x", side="bottom")
+        tk.Frame(footer, bg=BORDER, height=1).pack(fill="x", side="top")
+        tk.Label(
+            footer, text="Developed by Mr. Aayush Bhandari · offline · local · private",
+            bg=PANEL, fg=MUTED, font=("Segoe UI", 9),
+        ).pack(pady=5)
 
     def _build_menu(self):
         self.menu_bar = tk.Menu(self, bg=PANEL, fg=TEXT, activebackground=ACCENT_DARK,
@@ -896,7 +908,8 @@ class FaceAttendanceApp(tk.Tk):
             "About",
             f"{WINDOW_TITLE}\n\nV2 - Proper application\n"
             "Local, privacy-focused attendance. No cloud, no external APIs.\n"
-            "Face data is stored as numerical embeddings only.",
+            "Face data is stored as numerical embeddings only.\n\n"
+            "Developed by Mr. Aayush Bhandari",
         )
 
     def _log(self, message):
@@ -1048,10 +1061,86 @@ def mean_encoding_match():
     return match_known(np.zeros(128, dtype=np.float64), [np.zeros(128, dtype=np.float64)])
 
 
+def _dump_crash(exc):
+    try:
+        import os
+        import traceback
+
+        crash = Path(os.environ.get("TEMP", ".")) / "faceatt_crash.log"
+        crash.write_text(traceback.format_exc(), encoding="utf-8")
+    except Exception:
+        pass
+
+
+def _dpi_aware():
+    try:
+        import ctypes
+
+        ctypes.windll.user32.SetProcessDPIAware()
+    except Exception:
+        pass
+
+
+def _capture_shots(outdir):
+    import sys
+    import time
+    from PIL import ImageGrab
+
+    _dpi_aware()
+    outdir = Path(outdir)
+    outdir.mkdir(parents=True, exist_ok=True)
+
+    import database as _db
+
+    for meta in _db.list_students_meta():
+        _db.delete_student(meta["student_id"])
+    demo = ["Aarav Sharma", "Nirvana Thapa", "Riya Karki", "Saugat Shrestha"]
+    for i, name in enumerate(demo, 1):
+        _db.add_student(f"D{i:04d}", name, np.random.default_rng(i).random(128))
+        for days_ago in range(0, 8):
+            if (days_ago + i) % 3:
+                _db.mark_attendance(f"D{i:04d}", name, date.today() - timedelta(days=days_ago))
+
+    def grab(window, name):
+        window.update_idletasks()
+        x, y = window.winfo_rootx(), window.winfo_rooty()
+        w, h = window.winfo_width(), window.winfo_height()
+        path = outdir / f"{name}.png"
+        ImageGrab.grab(bbox=(x, y, x + w, y + h)).save(path)
+        sys.stdout.write(f"saved {path} ({w}x{h})\n")
+        sys.stdout.flush()
+
+    login = LoginWindow()
+    login.geometry("1024x640")
+    login.update()
+    grab(login, "0-login")
+    login.destroy()
+
+    app = FaceAttendanceApp()
+    app.geometry("1366x768")
+    time.sleep(1.0)
+    app.lift()
+    for index, name in ((0, "1-live"), (2, "2-dashboard"), (3, "3-reports"), (1, "4-students")):
+        app.notebook.select(index)
+        for _ in range(30):
+            app.update()
+            time.sleep(0.05)
+        grab(app, name)
+    app.on_close()
+    return 0
+
+
 def main():
-    if "--selftest" in __import__("sys").argv:
+    args = __import__("sys").argv
+    if "--selftest" in args:
         raise SystemExit(_selftest())
-    LoginWindow().mainloop()
+    if "--capture-shots" in args:
+        raise SystemExit(_capture_shots(args[args.index("--capture-shots") + 1]))
+    try:
+        LoginWindow().mainloop()
+    except BaseException:
+        _dump_crash(__import__("sys").exc_info())
+        raise
 
 
 if __name__ == "__main__":
